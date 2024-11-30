@@ -11,17 +11,17 @@ source:
 
 build:
   noarch: python
-  number: 2
+  number: 3
   script: "{{ PYTHON }} -m pip install . -vv --no-deps"
   entry_points:
   - yank = yank.cli:main
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.6,<3.10a0
+    - python >={{ python_min }},<3.10a0
     - pandas
     - numpy >=1.14
     - scipy
@@ -40,6 +40,8 @@ requirements:
     - pdbfixer
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - yank
   commands:
